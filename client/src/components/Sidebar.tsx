@@ -6,16 +6,15 @@ import { useState } from 'react';
 
 function Sidebar() {
 
-  const [data, setData] = useState<number>(16);
-  const [indicator, setIndicator] = useState<string>('');
-  const [country, setCountry] = useState<string>('');
-
-  let url = 'http://api.worldbank.org/v2/country/PER/indicator/FP.CPI.TOTL.ZG?&format=json&date=2022'
+  const [data, setData] = useState<number>()
+  const [indicator, setIndicator] = useState<string>();
+  const [country, setCountry] = useState<string>();
 
   async function getData() {
+    let url = createUrl();
     try {
       const response = await axios.get(url);
-      // console.log(response)
+      console.log(response.data[1][0].value)
       setData(response.data[1][0].value)
     } catch (error) {
       console.log(error)
@@ -23,15 +22,16 @@ function Sidebar() {
   }
 
   function getIndicator( indicator: string) {
-    console.log(indicator)
+    setIndicator(indicator)
   }
   
   function getCountry( country: string ) {
-    console.log(country)
+    setCountry(country)
   }
 
   function createUrl() {
-    const url = `http://api.worldbank.org/v2/country/${country}/indicator/${indicator}$format=json@data=2022`
+    const url = `http://api.worldbank.org/v2/country/${country}/indicator/${indicator}?&format=json&date=2022`
+    return url 
   }
 
   return (
