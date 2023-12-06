@@ -1,16 +1,14 @@
 import React from 'react';
 
 interface IndicatorsProps {
-	pull_data: any
+	getIndicator: (indicator: string) => void,
 }
 
 function Indicators(props: IndicatorsProps) {
-	
-// props.pull_data('Jackson')
 
   return <div className='text-center'>
 		<h2 className='underline'>Indicators</h2>
-		<p>Inflation</p>
+		<button onClick={() => props.getIndicator('FP.CPI.TOTL.ZG')}>Pick Indicator</button>
 	</div>;
 }
 

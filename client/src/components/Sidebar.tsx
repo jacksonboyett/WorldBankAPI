@@ -7,6 +7,8 @@ import { useState } from 'react';
 function Sidebar() {
 
   const [data, setData] = useState<number>(16);
+  const [indicator, setIndicator] = useState<string>('');
+  const [country, setCountry] = useState<string>('');
 
   let url = 'http://api.worldbank.org/v2/country/PER/indicator/FP.CPI.TOTL.ZG?&format=json&date=2022'
 
@@ -20,8 +22,16 @@ function Sidebar() {
     }
   }
 
-  function pull_data (data: string) {
-    console.log(data)
+  function getIndicator( indicator: string) {
+    console.log(indicator)
+  }
+  
+  function getCountry( country: string ) {
+    console.log(country)
+  }
+
+  function createUrl() {
+    const url = `http://api.worldbank.org/v2/country/${country}/indicator/${indicator}$format=json@data=2022`
   }
 
   return (
@@ -30,8 +40,8 @@ function Sidebar() {
 			flex-col bg-componentbg rounded-lg text-white shadow-white m-4'
     >
       <h1 className='m-2 text-2xl'>World Bank Data</h1>
-      <Indicators pull_data={pull_data}/>
-      <Countries/>
+      <Indicators getIndicator={getIndicator}/>
+      <Countries getCountry={getCountry}/>
       <button role='getDataButton' className= 'hover:text-green-500 focus:text-purple-500' onClick={getData}>Go</button>
       <p role='dataDisplay'>{data}</p>
     </div>
