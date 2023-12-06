@@ -1,5 +1,5 @@
 import {
-  AnimatedAxis, // any of these can be non-animated equivalents
+  Axis, // any of these can be non-animated equivalents
   AnimatedGrid,
   AnimatedLineSeries,
   XYChart,
@@ -7,22 +7,21 @@ import {
 } from '@visx/xychart';
 
 const data1 = [
-  { x: '2020-01-01', y: 50 },
-  { x: '2020-01-02', y: 10 },
-  { x: '2020-01-03', y: 20 },
+  { x: '1', y: 50 },
+  { x: '2', y: 10 },
+  { x: '3', y: 20 },
 ];
 
 const accessors = {
-  xAccessor: (d) => d.x,
-  yAccessor: (d) => d.y,
+  xAccessor: (d: any) => d.x,
+  yAccessor: (d: any) => d.y,
 };
 
-const Chart = () => (
+export const ChartExample = () => (
   <XYChart xScale={{ type: 'band' }} yScale={{ type: 'linear' }}>
-    <AnimatedAxis orientation="bottom" />
-    <AnimatedAxis orientation="left" />
+    <Axis orientation="bottom" />
     <AnimatedGrid columns={false} numTicks={4} />
-    <AnimatedLineSeries dataKey="Line 1" data={data1} {...accessors} />
+    <AnimatedLineSeries stroke="white" dataKey="Line 1" data={data1} {...accessors} />
     <Tooltip
       snapTooltipToDatumX
       snapTooltipToDatumY
@@ -41,5 +40,3 @@ const Chart = () => (
     />
   </XYChart>
 );
-
-export default Chart

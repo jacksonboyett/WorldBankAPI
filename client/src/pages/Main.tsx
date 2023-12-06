@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 import Sidebar from '../components/Sidebar'
-import Chart from '../components/Chart'
+import Chart from '../components/ChartContainer'
+import ChartContainer from '../components/ChartContainer'
 
 function Main() {
   // const url = 'http://localhost:3001/testServer'
@@ -19,7 +20,7 @@ function Main() {
   return (
     <div className='bg-bg h-screen flex font-jakarta'>
       <Sidebar/>
-      <Chart/>
+      <ChartContainer/>
       <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Test Server</button>
       <a className='App-link' href='https://reactjs.org'>Learn React</a>
     </div>
