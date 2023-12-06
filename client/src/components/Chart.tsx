@@ -5,6 +5,10 @@ import {
   XYChart,
   Tooltip,
 } from '@visx/xychart';
+import { useContext } from 'react';
+import { DataContext } from '../context/DataContext';
+
+const data2 = DataContext;
 
 const data1 = [
   { x: '2020-01-01', y: 50 },

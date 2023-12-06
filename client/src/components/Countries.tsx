@@ -7,7 +7,7 @@ interface CountriesProps {
 function Countries(props: CountriesProps) {
   return <div className='text-center'>
 		<h2 className='underline'>Countries</h2>
-		<button onClick={() => props.getCountry('PER')}>Pick Country</button>
+		<button role='getCountry' onClick={() => props.getCountry('PER')}>Pick Country</button>
 	</div>;
 }
 
