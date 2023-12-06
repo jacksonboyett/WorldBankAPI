@@ -1,6 +1,6 @@
 import Main from '../pages/Main';
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { describe, expect } from 'vitest';
 
 describe('Main', () => {
   test('renders test server button', () => {
