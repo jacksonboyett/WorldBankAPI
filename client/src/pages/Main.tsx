@@ -1,10 +1,8 @@
 import axios from 'axios'
 import Sidebar from '../components/Sidebar'
-import Chart from '../components/ChartContainer'
 import ChartContainer from '../components/ChartContainer'
-import { useState } from 'react'
-import { useContext } from 'react';
-import { DataContext } from '../context/DataContext';
+import { useState, useContext } from 'react'
+import { DataContext } from '../context/DataContext'
 
 function Main() {
   // const url = 'http://localhost:3001/testServer'
@@ -22,6 +20,7 @@ function Main() {
     const [data, setData] = useState<number>()
     const [indicator, setIndicator] = useState<string>();
     const [country, setCountry] = useState<string>();
+    const [dataContext, setDataContext] = useContext(DataContext);
   
     async function getData() {
       let url = createUrl();
@@ -29,6 +28,9 @@ function Main() {
         const response = await axios.get(url);
         console.log(response.data[1][0].value)
         setData(response.data[1][0].value)
+        setDataContext([
+          { x: '2022', y: response.data[1][0].value }
+        ])
       } catch (error) {
         console.log(error)
       }

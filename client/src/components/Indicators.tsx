@@ -5,7 +5,6 @@ interface IndicatorsProps {
 }
 
 function Indicators(props: IndicatorsProps) {
-
   return <div className='text-center'>
 		<h2 className='underline'>Indicators</h2>
 		<button role='getIndicator' onClick={() => props.getIndicator('FP.CPI.TOTL.ZG')}>Pick Indicator</button>

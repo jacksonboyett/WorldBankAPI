@@ -1,8 +1,6 @@
 import React from 'react';
 import Indicators from './Indicators';
 import Countries from './Countries';
-import axios from 'axios';
-import { useState } from 'react';
 
 interface SidebarProps {
 	getIndicator: (indicator: string) => void,
@@ -10,7 +8,6 @@ interface SidebarProps {
 }
 
 function Sidebar(props: SidebarProps) {
-
   return (
     <div
       className='fixed top-0 h-[95vh] w-64 flex items-center justify-between
