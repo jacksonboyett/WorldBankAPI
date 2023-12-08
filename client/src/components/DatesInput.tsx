@@ -3,27 +3,27 @@ import {
   faCalendarDays,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { DataContext } from './DataContext';
+import { InputContext } from './InputContext';
 
 function DatesInput() {
-	const [data, setData] = useContext(DataContext)
+	const [inputContext, setInputContext] = useContext(InputContext)
   const [fromYear, setFromYear] = useState<number>();
   const [toYear, setToYear] = useState<number>();
 
   function handleFromInput(e: any) {
 		let from = e.target.value;
     setFromYear(from);
-		let newContext = data; 
+		let newContext = inputContext; 
 		newContext.from = from;
-		setData(newContext)
+		setInputContext(newContext)
   }
 
 	function handleToInput(e: any) {
 		let to = e.target.value;
     setToYear(to);
-		let newContext = data; 
+		let newContext = inputContext; 
 		newContext.to = to;
-		setData(newContext)
+		setInputContext(newContext)
   }
 
   return (

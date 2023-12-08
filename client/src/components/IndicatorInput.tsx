@@ -6,17 +6,17 @@ import {
 	faScaleBalanced
 } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
-import { DataContext } from './DataContext';
+import { InputContext } from './InputContext';
 
 export default function IndicatorInput() {
 
-  const [data, setData] = useContext(DataContext);
+  const [inputContext, setInputContext] = useContext(InputContext);
   const [indicatorSelection, setIndicatorSelection] = useState<Array<string>>()
 
   function selectIndicator(indicator: string){
-    let newContext = data;
+    let newContext = inputContext;
     newContext.indicator = indicator; 
-    setData(newContext);
+    setInputContext(newContext);
   }
 
   return (

@@ -1,6 +1,3 @@
-import { DataContext } from "./DataContext";
-import { useContext } from "react";
-
 interface SubmitProps {
 	submit: () => void, 
 }
@@ -8,8 +5,8 @@ interface SubmitProps {
 function Submit(props: SubmitProps) {
 
 	return ( 
-		<div onClick={props.submit}>
-			GO!!!!!!!!!
+		<div className='relative bg-white text-black text-xl font-bold h-10 w-24 ml-auto flex justify-center items-center rounded-lg mb-4' onClick={props.submit}>
+			GO
 		</div>
 	 );
 }
