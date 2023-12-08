@@ -19,12 +19,13 @@ describe('Sidebar', () => {
 	})
 	test('from year input renders', () => {
 		render(<Sidebar/>);
-		const from = screen.getByText(/From/i)
-		expect(from.textContent).toBe('From')
+		const from = screen.getByText('From:')
+		expect(from.textContent).toBe('From:')
 	})
 	test('to year input renders', () => {
 		render(<Sidebar/>);
-		const to = screen.getByText('To')
-		expect(to.textContent).toBe('To')
+		console.log('below is the screen debug')
+		const to = screen.getByText('To:')
+		expect(to.textContent).toBe('To:')
 	})
 })

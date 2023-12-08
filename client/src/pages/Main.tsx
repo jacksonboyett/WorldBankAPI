@@ -5,7 +5,7 @@ function Main() {
   return (
     <div className='bg-bg h-screen flex'>
       <Sidebar />
-      {/* <ChartContainer /> */}
+      <ChartContainer />
     </div>
   );
 }

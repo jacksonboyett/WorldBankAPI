@@ -5,14 +5,19 @@ import {
   faChevronDown,
   faEarthAmerica
 } from '@fortawesome/free-solid-svg-icons';
+import { DataContext } from './DataContext';
+import { useContext } from 'react';
 
 export default function CountriesInput() {
 
+  const [data, setData] = useContext(DataContext);
   const [countrySelection, setCountrySelection] = useState<Array<string>>()
 
   function selectCountry(country: string){
-    setCountrySelection([country])
-    console.log(`Country selection: ${country}`)
+    let newContext = data;
+    let newCountries = [...data.countries, country];
+    newContext.countries = newCountries;
+    setData(newContext);
   }
 
   return (

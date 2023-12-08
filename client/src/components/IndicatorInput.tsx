@@ -5,14 +5,19 @@ import {
   faChevronDown,
 	faScaleBalanced
 } from '@fortawesome/free-solid-svg-icons';
+import { useContext } from 'react';
+import { DataContext } from './DataContext';
 
 export default function IndicatorInput() {
 
+  const [data, setData] = useContext(DataContext);
   const [indicatorSelection, setIndicatorSelection] = useState<Array<string>>()
 
   function selectIndicator(indicator: string){
-    setIndicatorSelection([indicator])
-    console.log(`Indicator selection: ${indicator}`)
+    let newContext = data;
+    newContext.indicator = indicator; 
+    setData(newContext);
+    console.log(data)
   }
 
   return (

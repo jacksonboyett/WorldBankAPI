@@ -1,21 +1,31 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import {
   faCalendarDays,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { DataContext } from './DataContext';
 
 function DatesInput() {
+	const [data, setData] = useContext(DataContext)
   const [fromYear, setFromYear] = useState<number>();
   const [toYear, setToYear] = useState<number>();
 
-  function handleFromInput(e: ChangeEvent<HTMLInputElement>) {
-    setFromYear(e.target.value);
+  function handleFromInput(e: any) {
+		let from = e.target.value;
+    setFromYear(from);
+		let newContext = data; 
+		newContext.from = from;
+		setData(newContext)
   }
 
-	function handleToInput(e: ChangeEvent<HTMLInputElement>) {
-    setToYear(e.target.value);
+	function handleToInput(e: any) {
+		let to = e.target.value;
+    setToYear(to);
+		let newContext = data; 
+		newContext.to = to;
+		setData(newContext)
   }
-	
+
   return (
     <div className='text-start w-full'>
       <div className='relative bg-gradient-to-r from-darkBlueBg to-lightBlueBg h-12 flex items-center rounded-lg justify-between w-full mb-4'>
