@@ -1,14 +1,14 @@
-import React from 'react';
+import { faChevronDown, faEarthAmerica, faGlobe, faScaleBalanced } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-interface IndicatorsProps {
-	getIndicator: (indicator: string) => void,
+function Indicator() {
+	return ( 
+		<div className="bg-gradient-to-r from-darkBlueBg to-lightBlueBg h-12 flex items-center rounded-lg px-4 mb-4 justify-between">
+			<FontAwesomeIcon icon={faScaleBalanced}/>
+			<div className='mr-auto ml-4'>Indicator</div>
+			<FontAwesomeIcon icon={faChevronDown}/>
+		</div>
+	 );
 }
 
-function Indicators(props: IndicatorsProps) {
-  return <div className='text-center'>
-		<h2 className='underline'>Indicators</h2>
-		<button role='getIndicator' onClick={() => props.getIndicator('FP.CPI.TOTL.ZG')}>Pick Indicator</button>
-	</div>;
-}
-
-export default Indicators;
+export default Indicator;

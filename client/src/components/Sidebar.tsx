@@ -1,23 +1,17 @@
-import React from 'react';
-import Indicators from './Indicators';
-import Countries from './Countries';
+import Countries from "./Countries";
+import Indicator from "./Indicators";
+import Dates from "./Dates";
 
-interface SidebarProps {
-	getIndicator: (indicator: string) => void,
-	getCountry: (country: string) => void,
-}
-
-function Sidebar(props: SidebarProps) {
-  return (
-    <div
-      className='fixed top-0 h-[95vh] w-64 flex items-center justify-between
-			flex-col bg-componentbg rounded-lg text-white shadow-white m-4'
-    >
-      <h1 className='m-2 text-2xl'>World Bank Data</h1>
-      <Indicators getIndicator={props.getIndicator}/>
-      <Countries getCountry={props.getCountry}/>
-    </div>
-  );
+function Sidebar() {
+	return ( 
+		<div className="h-[calc(100vh-1rem)] flex flex-col text-center text-white rounded-xl my-auto ml-2 p-6 pt-0 w-96 bg-gradient-to-b from-lightGrayBg to-darkGrayBg">
+			<h1 className="m-6 text-2xl">World Bank Data Visualizer</h1>
+			<div className="bg-gradient-to-r from-lightBg via-[#6B6B70] to-lightGrayBg h-[1px] mb-4"></div>
+			<Countries/>
+			<Indicator/>
+			<Dates/>
+		</div>
+	 );
 }
 
 export default Sidebar;

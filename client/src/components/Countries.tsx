@@ -1,14 +1,15 @@
-import React from 'react';
+import { faChevronDown, faEarthAmerica, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-interface CountriesProps {
-	getCountry: (country: string) => void,
-}
-
-function Countries(props: CountriesProps) {
-  return <div className='text-center'>
-		<h2 className='underline'>Countries</h2>
-		<button role='getCountry' onClick={() => props.getCountry('PER')}>Pick Country</button>
-	</div>;
+function Countries() {
+	return ( 
+		<div className="bg-gradient-to-r from-darkBlueBg to-lightBlueBg h-12 flex items-center rounded-lg px-4 justify-between mb-4">
+			<FontAwesomeIcon icon={faEarthAmerica}/>
+			<div className='mr-auto ml-4'>Countries</div>
+			<FontAwesomeIcon icon={faChevronDown}/>
+			
+		</div>
+	 );
 }
 
 export default Countries;

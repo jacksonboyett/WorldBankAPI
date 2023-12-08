@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+export default{
   mode: 'jit',
   content: [
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
@@ -7,13 +7,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        componentbg: "#080B25",
-        bg: "#221B6D",
-        icon: "522EF5"
-
+        bg: "#F0F2F5",
+        darkBlueBg: '#3973E1',
+        lightBlueBg: "#5896E8",
+        darkGrayBg: "#1B1B1C",
+        lightGrayBg: "#404047"
       },
       fontFamily: {
-        'jakarta': ['"Plus Jakarta Sans"']
+        'roboto': ['Roboto', 'sans-serif']
       }
     },
   },
