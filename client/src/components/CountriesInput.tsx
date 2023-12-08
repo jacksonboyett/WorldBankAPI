@@ -10,14 +10,14 @@ export default function CountriesInput() {
 
   const [countrySelection, setCountrySelection] = useState<Array<string>>()
 
-  function selectCountry(countrySelction: string){
-    setCountrySelection([countrySelction])
-    console.log(`Country selection: ${countrySelction}`)
+  function selectCountry(country: string){
+    setCountrySelection([country])
+    console.log(`Country selection: ${country}`)
   }
 
   return (
       <Menu as="div" className='relative bg-gradient-to-r from-darkBlueBg to-lightBlueBg h-12 flex items-center rounded-lg justify-between mb-4'>
-          <Menu.Button className="w-full mx-4 flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
+          <Menu.Button role='countryDropdownBtn' className="w-full mx-4 flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
         <FontAwesomeIcon icon={faEarthAmerica} />
             <div className='mr-auto ml-4'>Countries</div>
             <FontAwesomeIcon icon={faChevronDown} />

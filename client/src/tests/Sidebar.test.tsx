@@ -4,27 +4,27 @@ import Sidebar from "../components/Sidebar";
 describe('Sidebar', () => {
 	test('application title renders', () => {
 		render(<Sidebar/>);
-		const getTitle = screen.getByText(/World Bank Data Visualizer/i)
-		expect(getTitle.textContent).toBe('World Bank Data Visualizer')
+		const title = screen.getByText(/World Bank Data Visualizer/i)
+		expect(title.textContent).toBe('World Bank Data Visualizer')
 	})
 	test('countries input renders', () => {
 		render(<Sidebar/>);
-		const getCountries = screen.getByText(/Countries/i)
-		expect(getCountries.textContent).toBe('Countries')
+		const countries = screen.getByText(/Countries/i)
+		expect(countries.textContent).toBe('Countries')
 	})
 	test('indicators input renders', () => {
 		render(<Sidebar/>);
-		const getIndicators = screen.getByText(/Indicator/i)
-		expect(getIndicators.textContent).toBe('Indicator')
+		const indicators = screen.getByText(/Indicators/i)
+		expect(indicators.textContent).toBe('Indicators')
 	})
 	test('from year input renders', () => {
 		render(<Sidebar/>);
-		const getFrom = screen.getByText(/From/i)
-		expect(getFrom.textContent).toBe('From')
+		const from = screen.getByText(/From/i)
+		expect(from.textContent).toBe('From')
 	})
 	test('to year input renders', () => {
 		render(<Sidebar/>);
-		const getTo = screen.getByText('To')
-		expect(getTo.textContent).toBe('To')
+		const to = screen.getByText('To')
+		expect(to.textContent).toBe('To')
 	})
 })
