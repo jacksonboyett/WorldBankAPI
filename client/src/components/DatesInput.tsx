@@ -1,9 +1,9 @@
 import { faCalendarCheck, faCalendarDay, faCalendarDays, faChevronDown, faEarthAmerica, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function Dates() {
+function DatesInput() {
 	return ( 
-		<div className='mt-auto text-start'>
+		<div className='text-start'>
 			<h1>From</h1>
 		<div className="bg-gradient-to-r from-darkBlueBg to-lightBlueBg h-12 flex items-center rounded-lg px-4 justify-between mb-4">
 			<FontAwesomeIcon icon={faCalendarDays}/>
@@ -20,4 +20,4 @@ function Dates() {
 	 );
 }
 
-export default Dates;
+export default DatesInput;
