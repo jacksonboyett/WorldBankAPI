@@ -17,7 +17,6 @@ export default function IndicatorInput() {
     let newContext = data;
     newContext.indicator = indicator; 
     setData(newContext);
-    console.log(data)
   }
 
   return (
