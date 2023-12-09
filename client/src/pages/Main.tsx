@@ -21,7 +21,6 @@ function Main() {
     try {
       const res = await axios.get(url);
       setDataContext(res.data[1]);
-      console.log(res.data[1]);
     } catch (error) {
       console.log(error);
     }

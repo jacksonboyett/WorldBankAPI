@@ -2,28 +2,32 @@ import * as React from 'react';
 import { useContext, useEffect } from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { DataContext } from '../context/DataContext';
+import { InputContext } from '../context/InputContext';
 import '../assets/Chart.css';
 
 export default function MUIChart() {
   const [dataContext, setDataContext] = useContext(DataContext);
+  const [inputContext, setInputContext] = useContext(InputContext);
 
-  const xLabels = makeXLabelsArr(dataContext);
-  const uData = makeDataArr(dataContext);
+  const { countries, indicator, from, to } = inputContext;
 
-  // const uData = [4000, 3000, 2000, 2780, 1890, 2390, 3490];
-  // const pData = [2400, 1398, 9800, 3908, 4800, 3800, 4300];
-  // const xLabels = [
-  //   'Page A',
-  //   'Page B',
-  //   'Page C',
-  //   'Page D',
-  //   'Page E',
-  //   'Page F',
-  //   'Page G',
-  // ];
+  let xLabels = [];
+  let uData: any = [[]];
 
-  return (
-    dataContext ?
+  if (dataContext) {
+    xLabels = makeXLabelsArr(dataContext);
+    uData = makeDataArr(dataContext, inputContext.countries.length);
+    console.log(
+      uData.map((arr: Array<number>, index: number) => {
+        return {
+          data: arr,
+          label: 'jackson',
+        };
+      })
+    );
+  }
+
+  return dataContext ? (
     <LineChart
       sx={{
         //change left yAxis label styles
@@ -52,17 +56,24 @@ export default function MUIChart() {
         },
         // Label Styles
         '& .MuiChartsLegend-series>text': {
-          filter: 'invert(100%) sepia(100%) saturate(0%) hue-rotate(98deg) brightness(107%) contrast(102%)',
-          transform: 'scale(1.5)',
-        }
+          filter:
+            'invert(100%) sepia(100%) saturate(0%) hue-rotate(98deg) brightness(107%) contrast(102%)',
+          transform: 'scale(1)',
+        },
       }}
-      series={[
-        // { data: pData, label: 'pv' },
-        { data: uData, label: 'Peru inflation from 2015-2022' },
-      ]}
+      series={
+        uData.map( (arr: Array<number>, index: number) => {
+          return (
+            {
+              data: arr,
+              label: `${inputContext.countries[index]}`
+            }
+          )
+        })
+      }
       xAxis={[{ scaleType: 'point', data: xLabels }]}
     />
-    :
+  ) : (
     <div></div>
   );
 }
@@ -76,11 +87,18 @@ function makeXLabelsArr(resArr: any) {
   return xLabelsArr;
 }
 
-function makeDataArr(resArr: any) {
+function makeDataArr(resArr: any, numberOfCountries: number) {
+  let count = 0;
   let dataArr = [];
-  for (let i = 0; i < resArr.length; i++) {
-    dataArr.push(resArr[i].value);
+  let allData = [];
+  for (let j = 0; j < numberOfCountries; j++) {
+    for (let i = 0; i < resArr.length / numberOfCountries; i++) {
+      dataArr.push(resArr[count].value);
+      count++;
+    }
+    dataArr = dataArr.reverse();
+    allData.push(dataArr);
+    dataArr = [];
   }
-  dataArr = dataArr.reverse();
-  return dataArr;
+  return allData;
 }
