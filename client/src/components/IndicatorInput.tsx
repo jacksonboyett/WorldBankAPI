@@ -6,7 +6,7 @@ import {
 	faScaleBalanced
 } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
-import { InputContext } from './InputContext';
+import { InputContext } from '../context/InputContext';
 
 export default function IndicatorInput() {
 

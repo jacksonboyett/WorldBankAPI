@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useContext, useEffect } from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
-import { DataContext } from './DataContext';
+import { DataContext } from '../context/DataContext';
 import '../assets/Chart.css';
 
 export default function MUIChart() {

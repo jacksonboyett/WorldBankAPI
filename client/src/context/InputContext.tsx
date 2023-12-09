@@ -16,10 +16,6 @@ let initialState = {
 const InputProvider = (props: InputProviderType) => {
   const [state, setState] = useState(initialState);
 
-  useEffect(() => {
-    console.log(state)
-  }, [state]);
-
   return (
     <InputContext.Provider value={[state, setState]}>
       {props.children}

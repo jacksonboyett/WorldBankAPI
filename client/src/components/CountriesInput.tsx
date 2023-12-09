@@ -5,7 +5,7 @@ import {
   faChevronDown,
   faEarthAmerica
 } from '@fortawesome/free-solid-svg-icons';
-import { InputContext } from './InputContext';
+import { InputContext } from '../context/InputContext';
 import { useContext } from 'react';
 
 export default function CountriesInput() {

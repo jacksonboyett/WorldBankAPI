@@ -3,7 +3,7 @@ import {
   faCalendarDays,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { InputContext } from './InputContext';
+import { InputContext } from '../context/InputContext';
 
 function DatesInput() {
 	const [inputContext, setInputContext] = useContext(InputContext)
