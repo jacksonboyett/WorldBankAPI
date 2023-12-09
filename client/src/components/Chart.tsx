@@ -7,10 +7,6 @@ import '../assets/Chart.css';
 export default function MUIChart() {
   const [dataContext, setDataContext] = useContext(DataContext);
 
-  useEffect(() => {
-    console.log(typeof dataContext)
-  }, []);
-
   const xLabels = makeXLabelsArr(dataContext);
   const uData = makeDataArr(dataContext);
 

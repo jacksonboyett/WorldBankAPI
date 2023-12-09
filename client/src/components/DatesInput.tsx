@@ -9,21 +9,26 @@ function DatesInput() {
 	const [inputContext, setInputContext] = useContext(InputContext)
   const [fromYear, setFromYear] = useState<number>();
   const [toYear, setToYear] = useState<number>();
+  const [ a, setA ] = useState<number>(10);
 
-  function handleFromInput(e: any) {
+  function handleFromChange(e: any) {
 		let from = e.target.value;
-    setFromYear(from);
-		let newContext = inputContext; 
-		newContext.from = from;
-		setInputContext(newContext)
+    setInputContext({
+      countries: inputContext.countries,
+      indicator: inputContext.indicator,
+      from: from,
+      to: inputContext.to
+    })
   }
 
-	function handleToInput(e: any) {
+  function handleToChange(e:any){
 		let to = e.target.value;
-    setToYear(to);
-		let newContext = inputContext; 
-		newContext.to = to;
-		setInputContext(newContext)
+    setInputContext({
+      countries: inputContext.countries,
+      indicator: inputContext.indicator,
+      from: inputContext.from,
+      to: to
+    })
   }
 
   return (
@@ -34,9 +39,7 @@ function DatesInput() {
           id='floating_outlined'
           className='px-2.5 pb-2.5 pt-4 w-full text-white bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
           placeholder=''
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') handleFromInput(e);
-          }}
+          onChange={handleFromChange}
         />
         <label
           htmlFor='floating_outlined'
@@ -52,9 +55,7 @@ function DatesInput() {
           id='floating_outlined'
           className='px-2.5 pb-2.5 pt-4 w-full text-white bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
           placeholder=''
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') handleToInput(e);
-          }}
+          onChange={handleToChange}
         />
         <label
           htmlFor='floating_outlined'

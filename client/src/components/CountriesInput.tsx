@@ -14,10 +14,12 @@ export default function CountriesInput() {
   const [countrySelection, setCountrySelection] = useState<Array<string>>()
 
   function selectCountry(country: string){
-    let newContext = inputContext;
-    let newCountries = [...inputContext.countries, country];
-    newContext.countries = newCountries;
-    setInputContext(newContext);
+    setInputContext({
+      countries: [...inputContext.countries, country],
+      indicator: inputContext.indicator,
+      from: inputContext.from,
+      to: inputContext.to
+    })
   }
 
   return (

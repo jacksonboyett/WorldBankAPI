@@ -14,9 +14,12 @@ export default function IndicatorInput() {
   const [indicatorSelection, setIndicatorSelection] = useState<Array<string>>()
 
   function selectIndicator(indicator: string){
-    let newContext = inputContext;
-    newContext.indicator = indicator; 
-    setInputContext(newContext);
+    setInputContext({
+      countries: inputContext.countries,
+      indicator: indicator,
+      from: inputContext.from,
+      to: inputContext.to
+    })
   }
 
   return (
