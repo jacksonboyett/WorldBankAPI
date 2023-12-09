@@ -2,6 +2,7 @@ import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
+  faCalculator,
   faChevronDown,
 	faScaleBalanced
 } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +12,7 @@ import { InputContext } from '../context/InputContext';
 export default function IndicatorInput() {
 
   const [inputContext, setInputContext] = useContext(InputContext);
+  const [ indicatorTrue, setIndicatorTrue ] = useState('hidden');
   const [indicatorSelection, setIndicatorSelection] = useState<Array<string>>()
 
   function selectIndicator(indicator: string){
@@ -22,7 +24,14 @@ export default function IndicatorInput() {
     })
   }
 
+  useEffect(() => {
+    if (inputContext.indicator != '') {
+      setIndicatorTrue('')
+    }
+  }, [inputContext]);
+
   return (
+    <div className='relative'>
       <Menu as="div" className='relative bg-gradient-to-r from-darkBlueBg to-lightBlueBg h-12 flex items-center rounded-lg justify-between mb-4'>
           <Menu.Button role='indicatorDropdownBtn' className="w-full mx-4 flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
         <FontAwesomeIcon icon={faScaleBalanced} />
@@ -38,7 +47,7 @@ export default function IndicatorInput() {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute top-12 w-full mt-2 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+          <Menu.Items className="absolute z-50 top-12 w-full mt-2 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
               <Menu.Item>
                 {({ active }) => (
                   <button
@@ -78,5 +87,10 @@ export default function IndicatorInput() {
           </Menu.Items>
         </Transition>
       </Menu>
+      <div className='absolute flex items-center w-full'>
+        <FontAwesomeIcon className={`mx-4 ${indicatorTrue}`} icon={faCalculator}/>
+        <div>{inputContext.indicator}</div>
+      </div>
+      </div>
   )
 }

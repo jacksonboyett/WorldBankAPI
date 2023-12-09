@@ -3,7 +3,8 @@ import { Fragment, useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronDown,
-  faEarthAmerica
+  faEarthAmerica,
+  faFlag
 } from '@fortawesome/free-solid-svg-icons';
 import { InputContext } from '../context/InputContext';
 import { useContext } from 'react';
@@ -23,6 +24,7 @@ export default function CountriesInput() {
   }
 
   return (
+    <div className='relative'> 
       <Menu as="div" className='relative bg-gradient-to-r from-darkBlueBg to-lightBlueBg h-12 flex items-center rounded-lg justify-between mb-4'>
           <Menu.Button role='countryDropdownBtn' className="w-full mx-4 flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
         <FontAwesomeIcon icon={faEarthAmerica} />
@@ -38,7 +40,7 @@ export default function CountriesInput() {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute top-12 w-full mt-2 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+          <Menu.Items className="absolute top-12 w-full mt-2 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none z-50">
               <Menu.Item>
                 {({ active }) => (
                   <button
@@ -78,5 +80,14 @@ export default function CountriesInput() {
           </Menu.Items>
         </Transition>
       </Menu>
+      { inputContext.countries.map( ( country: string, index: number ) => {
+        return (
+          <div className={`absolute flex mt-${index*8} items-center w-full`}>
+        <FontAwesomeIcon className='mx-4' icon={faFlag}/>
+        <div>{country}</div>
+      </div>
+        )
+      })}
+      </div>
   )
 }
