@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import {
   faCalendarDays,
 } from '@fortawesome/free-solid-svg-icons';
@@ -7,8 +7,6 @@ import { InputContext } from '../context/InputContext';
 
 function DatesInput() {
 	const [inputContext, setInputContext] = useContext(InputContext)
-  const [fromYear, setFromYear] = useState<number>();
-  const [toYear, setToYear] = useState<number>();
 
   function handleFromChange(e: any) {
 		let from = e.target.value;

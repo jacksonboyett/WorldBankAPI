@@ -1,9 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import CountriesInput from '../components/CountriesInput';
 import user from '@testing-library/user-event';
-import Main from '../pages/Main';
 import { DataProvider } from '../context/DataContext';
-import { InputProvider, InputContext } from '../context/InputContext';
+import { InputProvider } from '../context/InputContext';
 
 describe('CountriesInput', () => {
 	test('country dropdown menu hidden on load', () => {

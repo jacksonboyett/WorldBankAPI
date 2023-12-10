@@ -1,14 +1,12 @@
-import * as React from 'react';
-import { useContext, useEffect } from 'react';
-import { axisClasses } from '@mui/x-charts';
+import { useContext } from 'react';
+
 import { LineChart } from '@mui/x-charts/LineChart';
 import { DataContext } from '../context/DataContext';
 import { InputContext } from '../context/InputContext';
-import '../assets/Chart.css';
 
 export default function MUIChart() {
-  const [dataContext, setDataContext] = useContext(DataContext);
-  const [inputContext, setInputContext] = useContext(InputContext);
+  const [dataContext] = useContext(DataContext);
+  const [inputContext] = useContext(InputContext);
 
   // const { countries, indicator, from, to } = inputContext;
 

@@ -3,7 +3,7 @@ import IndicatorInput from '../components/IndicatorInput';
 import Main from '../pages/Main';
 import user from '@testing-library/user-event';
 import { DataProvider } from '../context/DataContext';
-import { InputProvider, InputContext } from '../context/InputContext';
+import { InputProvider } from '../context/InputContext';
 
 describe('IndicatorInput', () => {
 	test('indicator dropdown menu hidden on load', () => {

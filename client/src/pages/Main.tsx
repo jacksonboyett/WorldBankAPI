@@ -8,7 +8,7 @@ import { indicatorsCodesJson } from '../data/indicators-with-codes';
 import { countriesCodesJson } from '../data/countries-with-codes';
 
 function Main() {
-  const [inputContext, setInputContext] = useContext(InputContext);
+  const [inputContext] = useContext(InputContext);
   const [dataContext, setDataContext] = useContext(DataContext);
 
   async function submit() {
@@ -21,7 +21,7 @@ function Main() {
     // const url = `http://api.worldbank.org/v2/country/PE/indicator/FP.CPI.TOTL.ZG?&format=json&date=2015:2022`;
     try {
       const res = await axios.get(url);
-      // setDataContext(res.data[1]);
+      setDataContext(res.data[1]);
     } catch (error) {
       console.log(error);
     }

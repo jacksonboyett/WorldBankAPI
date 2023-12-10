@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronDown,
@@ -13,7 +13,6 @@ import uniqid from 'uniqid';
 export default function CountriesInput() {
 
   const [inputContext, setInputContext] = useContext(InputContext);
-  const [countrySelection, setCountrySelection] = useState<Array<string>>()
 
   function selectCountry(country: string){
     setInputContext({
@@ -83,7 +82,7 @@ export default function CountriesInput() {
       </Menu>
       { inputContext.countries.map( ( country: string, index: number ) => {
         return (
-          <div key={uniqid()} className={`absolute flex mt-${index*8} items-center w-full`}>
+          <div key={uniqid()} style={{ position: 'absolute', display: 'flex', alignItems: 'center', top: `calc(60px + ${index*32}px)`}}>
         <FontAwesomeIcon className='mx-4' icon={faFlag}/>
         <div>{country}</div>
       </div>
