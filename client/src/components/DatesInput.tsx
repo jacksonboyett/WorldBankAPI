@@ -9,7 +9,6 @@ function DatesInput() {
 	const [inputContext, setInputContext] = useContext(InputContext)
   const [fromYear, setFromYear] = useState<number>();
   const [toYear, setToYear] = useState<number>();
-  const [ a, setA ] = useState<number>(10);
 
   function handleFromChange(e: any) {
 		let from = e.target.value;

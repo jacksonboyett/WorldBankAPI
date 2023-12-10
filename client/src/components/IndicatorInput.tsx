@@ -13,7 +13,7 @@ export default function IndicatorInput() {
 
   const [inputContext, setInputContext] = useContext(InputContext);
   const [ indicatorTrue, setIndicatorTrue ] = useState('hidden');
-  const [indicatorSelection, setIndicatorSelection] = useState<Array<string>>()
+  // const [indicatorSelection, setIndicatorSelection] = useState<Array<string>>()
 
   function selectIndicator(indicator: string){
     setInputContext({

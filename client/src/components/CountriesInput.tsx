@@ -8,6 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { InputContext } from '../context/InputContext';
 import { useContext } from 'react';
+import uniqid from 'uniqid';
 
 export default function CountriesInput() {
 
@@ -82,7 +83,7 @@ export default function CountriesInput() {
       </Menu>
       { inputContext.countries.map( ( country: string, index: number ) => {
         return (
-          <div className={`absolute flex mt-${index*8} items-center w-full`}>
+          <div key={uniqid()} className={`absolute flex mt-${index*8} items-center w-full`}>
         <FontAwesomeIcon className='mx-4' icon={faFlag}/>
         <div>{country}</div>
       </div>

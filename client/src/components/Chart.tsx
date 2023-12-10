@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useContext, useEffect } from 'react';
+import { axisClasses } from '@mui/x-charts';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { DataContext } from '../context/DataContext';
 import { InputContext } from '../context/InputContext';
@@ -9,7 +10,7 @@ export default function MUIChart() {
   const [dataContext, setDataContext] = useContext(DataContext);
   const [inputContext, setInputContext] = useContext(InputContext);
 
-  const { countries, indicator, from, to } = inputContext;
+  // const { countries, indicator, from, to } = inputContext;
 
   let xLabels = [];
   let uData: any = [[]];
@@ -17,17 +18,10 @@ export default function MUIChart() {
   if (dataContext) {
     xLabels = makeXLabelsArr(dataContext);
     uData = makeDataArr(dataContext, inputContext.countries.length);
-    console.log(
-      uData.map((arr: Array<number>, index: number) => {
-        return {
-          data: arr,
-          label: 'jackson',
-        };
-      })
-    );
   }
 
   return dataContext ? (
+    <div className='h-full'>
     <LineChart
       sx={{
         //change left yAxis label styles
@@ -60,19 +54,28 @@ export default function MUIChart() {
             'invert(100%) sepia(100%) saturate(0%) hue-rotate(98deg) brightness(107%) contrast(102%)',
           transform: 'scale(1)',
         },
+        // XAxis Label
+        '& .MuiChartsAxis-label': {
+          filter:
+            'invert(100%) sepia(100%) saturate(0%) hue-rotate(98deg) brightness(107%) contrast(102%)',
+            // transform: 'translate(-20px)'
+        },
+        '& .MuiChartsAxis-label:nth-child(odd)': {
+          filter:
+            'invert(100%) sepia(100%) saturate(0%) hue-rotate(98deg) brightness(107%) contrast(102%)',
+            transform: 'translate(-10px)'
+        },
       }}
-      series={
-        uData.map( (arr: Array<number>, index: number) => {
-          return (
-            {
-              data: arr,
-              label: `${inputContext.countries[index]}`
-            }
-          )
-        })
-      }
-      xAxis={[{ scaleType: 'point', data: xLabels }]}
+      series={uData.map((arr: Array<number>, index: number) => {
+        return {
+          data: arr,
+          label: `${inputContext.countries[index]}`,
+        };
+      })}
+      xAxis={[{ scaleType: 'point', data: xLabels, label: 'Year' }]}
+      yAxis={[{ label: `${inputContext.indicator}` }]}
     />
+    </div>
   ) : (
     <div></div>
   );

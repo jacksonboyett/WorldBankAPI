@@ -12,15 +12,16 @@ function Main() {
   const [dataContext, setDataContext] = useContext(DataContext);
 
   async function submit() {
-    // const { countries, indicator, from, to } = data;
+    // const { countries, indicator, from, to } = dataContext;
     let countries = processCountriesInput(inputContext.countries);
     let indicator = processIndicatorInput(inputContext.indicator);
     let from = inputContext.from;
     let to = inputContext.to;
     const url = `http://api.worldbank.org/v2/country/${countries}/indicator/${indicator}?&format=json&date=${from}:${to}`;
+    // const url = `http://api.worldbank.org/v2/country/PE/indicator/FP.CPI.TOTL.ZG?&format=json&date=2015:2022`;
     try {
       const res = await axios.get(url);
-      setDataContext(res.data[1]);
+      // setDataContext(res.data[1]);
     } catch (error) {
       console.log(error);
     }
