@@ -15,8 +15,11 @@ export default function CountriesInput() {
   const [inputContext, setInputContext] = useContext(InputContext);
 
   function selectCountry(country: string){
+    let orderedCountries = [...inputContext.countries, country];
+    orderedCountries.sort((a, b) => a.localeCompare(b))
+    console.log(orderedCountries)
     setInputContext({
-      countries: [...inputContext.countries, country],
+      countries: orderedCountries,
       indicator: inputContext.indicator,
       from: inputContext.from,
       to: inputContext.to

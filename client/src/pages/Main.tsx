@@ -17,7 +17,7 @@ function Main() {
     let from = inputContext.from;
     let to = inputContext.to;
     const url = `http://api.worldbank.org/v2/country/${countries}/indicator/${indicator}?&format=json&date=${from}:${to}&per_page=2000`;
-    // const url = `http://api.worldbank.org/v2/country/PE;US;DE/indicator/FP.CPI.TOTL.ZG?&format=json&date=2000:2022&per_page=2000`;
+    // const url = `http://api.worldbank.org/v2/country/PE;US;DE/indicator/FP.CPI.TOTL.ZG?&format=json&date=2020:2022&per_page=2000`; 
     try {
       const res = await axios.get(url);
       let newData = makeDataArr(res.data[1], inputContext.countries.length);
