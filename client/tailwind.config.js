@@ -13,6 +13,9 @@ export default{
         darkGrayBg: "#1B1B1C",
         lightGrayBg: "#404047"
       },
+      margin: {
+          halfScreenWidth: 'calc(45vw - 120px)'
+      },
       fontFamily: {
         'roboto': ['Roboto', 'sans-serif']
       }

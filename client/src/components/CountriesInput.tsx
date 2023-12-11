@@ -15,6 +15,7 @@ export default function CountriesInput() {
 
   const [inputContext, setInputContext] = useContext(InputContext);
   const [open, setOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
@@ -26,8 +27,13 @@ export default function CountriesInput() {
   function selectCountry(country: string){
     let orderedCountries = [...inputContext.countries, country];
     orderedCountries.sort((a, b) => a.localeCompare(b))
-    console.log(orderedCountries.length)
+    if (hasDuplicates(orderedCountries)) {
+      setErrorMessage('You can only pick a country once!')
+      setOpen(true)
+      return
+    }
     if (orderedCountries.length > 3) {
+      setErrorMessage('Please only pick three countries!')
       setOpen(true)
       return
     }
@@ -38,6 +44,10 @@ export default function CountriesInput() {
       to: inputContext.to
     })
   }
+
+  function hasDuplicates(array: Array<string>) {
+    return (new Set(array)).size !== array.length;
+}
 
   return (
     <div className='relative'> 
@@ -104,9 +114,9 @@ export default function CountriesInput() {
       </div>
         )
       })}
-      {open ? <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-          Please only pick three countries!
+      {open ? <Snackbar open={open} onClose={handleClose}>
+        <Alert onClose={handleClose} className='m-0 ml-halfScreenWidth' severity="error" sx={{ width: '100%' }}>
+          {errorMessage}
         </Alert>
       </Snackbar> : <div></div>}
       </div>
