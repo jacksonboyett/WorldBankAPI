@@ -15,6 +15,16 @@ function Main() {
   const [errorMessage, setErrorMessage] = useState('');
 
   async function submit() {
+    if (
+      inputContext.countries.length < 1 ||
+      inputContext.indicator < 1 ||
+      inputContext.from === 0 ||
+      inputContext.to === 0
+    ) {
+      setErrorMessage('Please complete all of the inputs!');
+      setOpen(true);
+      return;
+    }
     let countries = processCountriesInput(inputContext.countries);
     let indicator = processIndicatorInput(inputContext.indicator);
     let from = inputContext.from;
@@ -37,16 +47,6 @@ function Main() {
 
   function handleEnter(e) {
     if (e.key === 'Enter') {
-      if (
-        inputContext.countries.length < 1 ||
-        inputContext.indicator < 1 ||
-        inputContext.from === 0 ||
-        inputContext.to === 0
-      ) {
-        setErrorMessage('Please complete all of the inputs!');
-        setOpen(true);
-        return;
-      }
       submit();
     }
   }
