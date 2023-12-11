@@ -1,5 +1,6 @@
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
+import { Snackbar, Alert } from '@mui/material';
+import { Fragment, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronDown,
@@ -13,11 +14,23 @@ import uniqid from 'uniqid';
 export default function CountriesInput() {
 
   const [inputContext, setInputContext] = useContext(InputContext);
+  const [open, setOpen] = useState(false);
+
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   function selectCountry(country: string){
     let orderedCountries = [...inputContext.countries, country];
     orderedCountries.sort((a, b) => a.localeCompare(b))
-    console.log(orderedCountries)
+    console.log(orderedCountries.length)
+    if (orderedCountries.length > 3) {
+      setOpen(true)
+      return
+    }
     setInputContext({
       countries: orderedCountries,
       indicator: inputContext.indicator,
@@ -91,6 +104,11 @@ export default function CountriesInput() {
       </div>
         )
       })}
+      {open ? <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+          Please only pick three countries!
+        </Alert>
+      </Snackbar> : <div></div>}
       </div>
   )
 }
