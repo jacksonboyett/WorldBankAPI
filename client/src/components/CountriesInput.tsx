@@ -114,7 +114,7 @@ export default function CountriesInput() {
       </div>
         )
       })}
-      {open ? <Snackbar open={open} onClose={handleClose}>
+      {open ? <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} className='m-0 ml-halfScreenWidth' severity="error" sx={{ width: '100%' }}>
           {errorMessage}
         </Alert>
