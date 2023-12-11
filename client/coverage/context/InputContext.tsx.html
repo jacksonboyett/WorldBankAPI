@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/Sidebar.tsx</title>
+    <title>Code coverage report for context/InputContext.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">components</a> Sidebar.tsx</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">context</a> InputContext.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>27/27</span>
+                <span class='fraction'>30/30</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>27/27</span>
+                <span class='fraction'>30/30</span>
             </div>
         
             
@@ -90,7 +90,10 @@
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -99,51 +102,57 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import CountriesInput from './CountriesInput';
-import IndicatorInput from './IndicatorInput';
-import DatesInput from './DatesInput';
-import Submit from './Submit';
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react';
 &nbsp;
-interface SidebarProps {
-  submit: () =&gt; void
+interface InputProviderType {
+  children: any;
 }
 &nbsp;
-function Sidebar(props: SidebarProps) {
+const InputContext = React.createContext&lt;any&gt;(null);
+&nbsp;
+let initialState = {
+  countries: [],
+  indicator: '',
+  from: 0,
+  to: 0,
+};
+&nbsp;
+const InputProvider = (props: InputProviderType) =&gt; {
+  const [state, setState] = useState(initialState);
+&nbsp;
+  // useEffect(() =&gt; {
+  //   console.log(state)
+  // }, [state]);
+&nbsp;
   return (
-    &lt;div className='h-[calc(100vh-1rem)] flex flex-col text-center justify-between text-white rounded-xl my-auto ml-2 px-6 w-96 bg-gradient-to-b from-lightGrayBg to-darkGrayBg'&gt;
-      &lt;div className='topSidebarContainer'&gt;
-        &lt;h1 className='m-6 text-2xl'&gt;World Bank Data Visualizer&lt;/h1&gt;
-        &lt;div className='bg-gradient-to-r from-lightBg via-[#6B6B70] to-lightGrayBg h-[1px] mb-4'&gt;&lt;/div&gt;
-        &lt;CountriesInput /&gt;
-      &lt;/div&gt;
-      &lt;IndicatorInput /&gt;
-      &lt;div className='topSidebarContainer'&gt;
-      &lt;DatesInput /&gt;
-      &lt;Submit submit={props.submit}/&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    &lt;InputContext.Provider value={[state, setState]}&gt;
+      {props.children}
+    &lt;/InputContext.Provider&gt;
   );
-}
+};
 &nbsp;
-export default Sidebar;
+export { InputContext, InputProvider };
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

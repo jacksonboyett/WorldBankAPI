@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface DataProviderType {
   children: any;
@@ -6,10 +6,18 @@ interface DataProviderType {
 
 const DataContext = React.createContext<any>(null);
 
-let initialState = false;
+let initialState = {
+  haveData: false,
+  values: [],
+  res: []
+};
 
 const DataProvider = (props: DataProviderType) => {
   const [state, setState] = useState(initialState);
+
+  useEffect(() => {
+    console.log(state)
+  }, [state]);
 
   return (
     <DataContext.Provider value={[state, setState]}>

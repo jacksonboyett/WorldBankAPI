@@ -8,17 +8,15 @@ export default function MUIChart() {
   const [dataContext] = useContext(DataContext);
   const [inputContext] = useContext(InputContext);
 
-  // const { countries, indicator, from, to } = inputContext;
-
   let xLabels = [];
   let uData: any = [[]];
 
-  if (dataContext) {
-    xLabels = makeXLabelsArr(dataContext);
-    uData = makeDataArr(dataContext, inputContext.countries.length);
+  if (dataContext.haveData) {
+    xLabels = makeXLabelsArr(dataContext.res);
+    uData = dataContext.values;
   }
 
-  return dataContext ? (
+  return dataContext.haveData ? (
     <div className='h-full'>
     <LineChart
       sx={{
@@ -86,20 +84,4 @@ function makeXLabelsArr(resArr: any) {
   }
   xLabelsArr = xLabelsArr.reverse();
   return xLabelsArr;
-}
-
-function makeDataArr(resArr: any, numberOfCountries: number) {
-  let count = 0;
-  let dataArr = [];
-  let allData = [];
-  for (let j = 0; j < numberOfCountries; j++) {
-    for (let i = 0; i < resArr.length / numberOfCountries; i++) {
-      dataArr.push(resArr[count].value);
-      count++;
-    }
-    dataArr = dataArr.reverse();
-    allData.push(dataArr);
-    dataArr = [];
-  }
-  return allData;
 }
