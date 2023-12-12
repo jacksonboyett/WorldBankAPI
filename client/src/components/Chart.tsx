@@ -11,66 +11,58 @@ export default function MUIChart() {
   let xLabels = [];
   let uData: any = [[]];
 
-  if (dataContext.haveData) {
-    xLabels = makeXLabelsArr(dataContext.res);
-    uData = dataContext.values;
-  }
+  xLabels = makeXLabelsArr(dataContext.res);
+  uData = dataContext.values;
 
   return dataContext.haveData ? (
     <div className='h-full'>
-    <LineChart
-      sx={{
-        //change left yAxis label styles
-        '& .MuiChartsAxis-left .MuiChartsAxis-tickLabel': {
-          strokeWidth: '0.4',
-          fill: '#FFFFFF',
-        },
-        // change all labels fontFamily shown on both xAxis and yAxis
-        '& .MuiChartsAxis-tickContainer .MuiChartsAxis-tickLabel': {
-          fontFamily: 'Roboto',
-        },
-        // change bottom label styles
-        '& .MuiChartsAxis-bottom .MuiChartsAxis-tickLabel': {
-          strokeWidth: '0.5',
-          fill: '#FFFFFF',
-        },
-        // bottomAxis Line Styles
-        '& .MuiChartsAxis-bottom .MuiChartsAxis-line': {
-          stroke: '#FFFFFF',
-          strokeWidth: 0.4,
-        },
-        // leftAxis Line Styles
-        '& .MuiChartsAxis-left .MuiChartsAxis-line': {
-          stroke: '#FFFFFF',
-          strokeWidth: 0.4,
-        },
-        // Label Styles
-        '& .MuiChartsLegend-series>text': {
-          filter:
-            'invert(100%) sepia(100%) saturate(0%) hue-rotate(98deg) brightness(107%) contrast(102%)',
-          transform: 'scale(1)',
-        },
-        // XAxis Label
-        '& .MuiChartsAxis-label': {
-          filter:
-            'invert(100%) sepia(100%) saturate(0%) hue-rotate(98deg) brightness(107%) contrast(102%)',
-            // transform: 'translate(-20px)'
-        },
-        '& .MuiChartsAxis-label:nth-child(odd)': {
-          filter:
-            'invert(100%) sepia(100%) saturate(0%) hue-rotate(98deg) brightness(107%) contrast(102%)',
-            transform: 'translate(-10px)'
-        },
-      }}
-      series={uData.map((arr: Array<number>, index: number) => {
-        return {
-          data: arr,
-          label: `${inputContext.countries[index]}`,
-        };
-      })}
-      xAxis={[{ scaleType: 'point', data: xLabels, label: 'Year' }]}
-      yAxis={[{ label: `${inputContext.indicator}` }]}
-    />
+      <LineChart
+        sx={{
+          //change left yAxis label styles
+          '& .MuiChartsAxis-left .MuiChartsAxis-tickLabel': {
+            strokeWidth: '0.4',
+            fill: '#FFFFFF',
+          },
+          // change all labels fontFamily shown on both xAxis and yAxis
+          '& .MuiChartsAxis-tickContainer .MuiChartsAxis-tickLabel': {
+            fontFamily: 'Roboto',
+          },
+          // change bottom label styles
+          '& .MuiChartsAxis-bottom .MuiChartsAxis-tickLabel': {
+            strokeWidth: '0.5',
+            fill: '#FFFFFF',
+          },
+          // bottomAxis Line Styles
+          '& .MuiChartsAxis-bottom .MuiChartsAxis-line': {
+            stroke: '#FFFFFF',
+            strokeWidth: 0.4,
+          },
+          // leftAxis Line Styles
+          '& .MuiChartsAxis-left .MuiChartsAxis-line': {
+            stroke: '#FFFFFF',
+            strokeWidth: 0.4,
+          },
+          // Legend Styles
+          '& .MuiChartsLegend-series>text': {
+            filter:
+              'invert(100%) sepia(100%) saturate(0%) hue-rotate(98deg) brightness(107%) contrast(102%)',
+            transform: 'scale(1)',
+          },
+          '& .MuiChartsAxis-label': {
+            filter:
+              'invert(100%) sepia(100%) saturate(0%) hue-rotate(98deg) brightness(107%) contrast(102%)',
+            transform: 'translate(-10px)',
+          },
+        }}
+        series={uData.map((arr: Array<number>, index: number) => {
+          return {
+            data: arr,
+            label: `${inputContext.countries[index]}`,
+          };
+        })}
+        xAxis={[{ scaleType: 'point', data: xLabels, label: 'Year' }]}
+        yAxis={[{ label: `${dataContext.unit} (x${dataContext.mag})` }]}
+      />
     </div>
   ) : (
     <div></div>

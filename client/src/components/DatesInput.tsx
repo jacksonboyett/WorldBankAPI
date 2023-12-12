@@ -1,31 +1,29 @@
 import { useContext } from 'react';
-import {
-  faCalendarDays,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputContext } from '../context/InputContext';
 
 function DatesInput() {
-	const [inputContext, setInputContext] = useContext(InputContext)
+  const [inputContext, setInputContext] = useContext(InputContext);
 
   function handleFromChange(e: any) {
-		let from = e.target.value;
+    let from = e.target.value;
     setInputContext({
       countries: inputContext.countries,
       indicator: inputContext.indicator,
       from: from,
-      to: inputContext.to
-    })
+      to: inputContext.to,
+    });
   }
 
-  function handleToChange(e:any){
-		let to = e.target.value;
+  function handleToChange(e: any) {
+    let to = e.target.value;
     setInputContext({
       countries: inputContext.countries,
       indicator: inputContext.indicator,
       from: inputContext.from,
-      to: to
-    })
+      to: to,
+    });
   }
 
   return (
@@ -46,7 +44,7 @@ function DatesInput() {
         </label>
         <FontAwesomeIcon icon={faCalendarDays} className='mx-4' />
       </div>
-			<div className='relative bg-gradient-to-r from-darkBlueBg to-lightBlueBg h-12 flex items-center rounded-lg justify-between w-full mb-4'>
+      <div className='relative bg-gradient-to-r from-darkBlueBg to-lightBlueBg h-12 flex items-center rounded-lg justify-between w-full mb-4'>
         <input
           type='number'
           id='floating_outlined'

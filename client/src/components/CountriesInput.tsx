@@ -16,13 +16,13 @@ export default function CountriesInput() {
   const [inputContext, setInputContext] = useContext(InputContext);
   const [open, setOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [countries, setCountries] = useState<Array<string>>([]);
+  const [countriesArr, setCountriesArr] = useState<Array<string>>([]);
 
   function makeCountriesInput() {
-    let codes = Object.keys(countriesCodesJson);
-    let countriesArr = codes.map((code) => countriesCodesJson[code]);
-    countriesArr.sort((a,b) => a.localeCompare(b))
-    setCountries(countriesArr);
+    let codesArr = Object.keys(countriesCodesJson);
+    let countryNamesArr = codesArr.map((code) => countriesCodesJson[code]);
+    countryNamesArr.sort((a, b) => a.localeCompare(b));
+    setCountriesArr(countryNamesArr);
   }
 
   useEffect(() => {
@@ -34,15 +34,17 @@ export default function CountriesInput() {
     reason?: string
   ) => {
     if (reason === 'clickaway') {
+      setOpen(false);
       return;
     }
     setOpen(false);
   };
 
   function selectCountry(country: string) {
-    console.log('selected')
-    let orderedCountries = [...inputContext.countries, country];
-    orderedCountries.sort((a, b) => a.localeCompare(b));
+    let unorderedCountries = [...inputContext.countries, country];
+    let orderedCountries = unorderedCountries.sort((a, b) =>
+      a.localeCompare(b)
+    );
     if (hasDuplicates(orderedCountries)) {
       setErrorMessage('You can only pick a country once!');
       setOpen(true);
@@ -89,9 +91,9 @@ export default function CountriesInput() {
           leaveTo='transform opacity-0 scale-95'
         >
           <Menu.Items className='absolute top-12 h-80 overflow-auto w-full mt-2 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none z-50'>
-            {countries.map((country: string, index: number) => {
+            {countriesArr.map((country: string) => {
               return (
-                <Menu.Item>
+                <Menu.Item key={uniqid()}>
                   {({ active }) => (
                     <button
                       className={`${
@@ -105,42 +107,6 @@ export default function CountriesInput() {
                 </Menu.Item>
               );
             })}
-            {/* <Menu.Item>
-                {({ active }) => (
-                  <button
-                    className={`${
-                      active ? 'bg-lightBlueBg text-white' : 'text-gray-900'
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    onClick={(e) => selectCountry(e.currentTarget.innerHTML)}
-                  >
-                    Peru
-                  </button>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    className={`${
-                      active ? 'bg-lightBlueBg text-white' : 'text-gray-900'
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    onClick={(e) => selectCountry(e.currentTarget.innerHTML)}
-                  >
-                    United States
-                  </button>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    className={`${
-                      active ? 'bg-lightBlueBg text-white' : 'text-gray-900'
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    onClick={(e) => selectCountry(e.currentTarget.innerHTML)}
-                  >
-                    Germany
-                  </button>
-                )}
-              </Menu.Item> */}
           </Menu.Items>
         </Transition>
       </Menu>

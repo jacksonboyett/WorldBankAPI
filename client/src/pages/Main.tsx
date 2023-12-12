@@ -14,6 +14,61 @@ function Main() {
   const [open, setOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  function makecountryValuesArr(resArr: any, numberOfCountries: number) {
+    let count = 0;
+    let countryValuesArr = [];
+    let allCountryValuesArr = [];
+    let maxValues = [];
+    for (let j = 0; j < numberOfCountries; j++) {
+      for (let i = 0; i < resArr.length / numberOfCountries; i++) {
+        countryValuesArr.push(resArr[count].value);
+        count++;
+      }
+      countryValuesArr = countryValuesArr.reverse();
+      let max = Math.max.apply(Math, countryValuesArr);
+      maxValues.push(max);
+      allCountryValuesArr.push(countryValuesArr);
+      countryValuesArr = [];
+    }
+    let max = Math.max.apply(Math, maxValues);
+    let mag = magnitude(max);
+    if (max > 999999) {
+      allCountryValuesArr = divideValueByMagnitude(allCountryValuesArr, mag);
+    }
+    return allCountryValuesArr;
+  }
+
+  function divideValueByMagnitude(
+    unadjustedArr: Array<Array<number>>,
+    mag: number
+  ) {
+    let adjustedArr = unadjustedArr.map((arr) =>
+      arr.map((value) => value / mag)
+    );
+    return adjustedArr;
+  }
+
+  function magnitude(n: number) {
+    var order = Math.floor(Math.log(n) / Math.LN10 + 0.000000001);
+    return Math.pow(10, order);
+  }
+
+  function handleEnter(e) {
+    if (e.key === 'Enter') {
+      submit();
+    }
+  }
+
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
   async function submit() {
     if (
       inputContext.countries.length < 1 ||
@@ -33,33 +88,21 @@ function Main() {
     // const url = `http://api.worldbank.org/v2/country/PE;US;DE/indicator/FP.CPI.TOTL.ZG?&format=json&date=2020:2022&per_page=2000`;
     try {
       const res = await axios.get(url);
-      let newData = makeDataArr(res.data[1], inputContext.countries.length);
+      let newData = makecountryValuesArr(
+        res.data[1],
+        inputContext.countries.length
+      );
       console.log(res);
       setDataContext({
         haveData: true,
         values: newData,
+        unit: res.data[1][0].indicator.value,
         res: res.data[1],
       });
     } catch (error) {
       console.log(error);
     }
   }
-
-  function handleEnter(e) {
-    if (e.key === 'Enter') {
-      submit();
-    }
-  }
-
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpen(false);
-  };
 
   return (
     <div
@@ -120,22 +163,6 @@ function getCountryCodeByValue(country: string): string {
     )!;
   }
   return countryCode;
-}
-
-function makeDataArr(resArr: any, numberOfCountries: number) {
-  let count = 0;
-  let dataArr = [];
-  let allData = [];
-  for (let j = 0; j < numberOfCountries; j++) {
-    for (let i = 0; i < resArr.length / numberOfCountries; i++) {
-      dataArr.push(resArr[count].value);
-      count++;
-    }
-    dataArr = dataArr.reverse();
-    allData.push(dataArr);
-    dataArr = [];
-  }
-  return allData;
 }
 
 export default Main;
