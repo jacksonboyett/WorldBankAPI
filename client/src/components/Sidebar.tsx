@@ -5,7 +5,7 @@ import Submit from './Submit';
 
 interface SidebarProps {
   submit: () => void,
-  updateCountriesArr: (country: string) => void,
+  updateCountriesArr: (country: Array<string>) => void,
   countriesArrState: Array<string>,
   updateIndicator: (indicator: string) => void,
   indicatorState: string,

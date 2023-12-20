@@ -122,8 +122,8 @@ function Main() {
     }
   }
 
-  function updateCountriesArr(country: string) {
-    setCountriesArr((countriesArr) => [...countriesArr, country]);
+  function updateCountriesArr(countriesArr: Array<string>) {
+    setCountriesArr(countriesArr);
   }
 
   function updateIndicator(indicator: string) {

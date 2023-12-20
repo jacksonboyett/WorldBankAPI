@@ -12,8 +12,8 @@ import uniqid from 'uniqid';
 import { countriesCodesJson } from '../data/countries-with-codes';
 
 interface CountriesInputProps {
-  updateCountriesArr: (country: string) => void,
-  countriesArrState: Array<string>,
+  updateCountriesArr: (country: Array<string>) => void;
+  countriesArrState: Array<string>;
 }
 
 export default function CountriesInput(props: CountriesInputProps) {
@@ -43,31 +43,26 @@ export default function CountriesInput(props: CountriesInputProps) {
     setOpen(false);
   };
 
-  // function selectCountry(country: string) {
-  //   let unorderedCountries = [...inputContext.countries, country];
-  //   let orderedCountries = unorderedCountries.sort((a, b) =>
-  //     a.localeCompare(b)
-  //   );
-  //   if (hasDuplicates(orderedCountries)) {
-  //     setErrorMessage('You can only pick a country once!');
-  //     setOpen(true);
-  //     return;
-  //   }
-  //   if (orderedCountries.length > 3) {
-  //     setErrorMessage('Please only pick three countries!');
-  //     setOpen(true);
-  //     return;
-  //   }
-  //   setInputContext({
-  //     countries: orderedCountries,
-  //     indicator: inputContext.indicator,
-  //     from: inputContext.from,
-  //     to: inputContext.to,
-  //   });
-  // }
-
   function selectCountry(country: string) {
-    props.updateCountriesArr(country);
+    let unorderedCountries: Array<string> = [
+      ...props.countriesArrState,
+      country,
+    ];
+    let orderedCountries: Array<string> = unorderedCountries.sort((a, b) =>
+      a.localeCompare(b)
+    );
+    if (hasDuplicates(orderedCountries)) {
+      setErrorMessage('You can only pick a country once!');
+      setOpen(true);
+      return;
+    }
+    if (orderedCountries.length > 3) {
+      if (typeof orderedCountries === undefined) return;
+      orderedCountries.shift();
+      props.updateCountriesArr(orderedCountries);
+      return;
+    }
+    props.updateCountriesArr(orderedCountries);
   }
 
   function hasDuplicates(array: Array<string>) {

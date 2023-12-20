@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>27/27</span>
+                <span class='fraction'>35/35</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>27/27</span>
+                <span class='fraction'>35/35</span>
             </div>
         
             
@@ -90,7 +90,15 @@
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -99,22 +107,30 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import CountriesInput from './CountriesInput';
@@ -123,7 +139,15 @@ import DatesInput from './DatesInput';
 import Submit from './Submit';
 &nbsp;
 interface SidebarProps {
-  submit: () =&gt; void
+  submit: () =&gt; void,
+  updateCountriesArr: (country: string) =&gt; void,
+  countriesArrState: Array&lt;string&gt;,
+  updateIndicator: (indicator: string) =&gt; void,
+  indicatorState: string,
+  updateFromYear: (fromYear: string) =&gt; void,
+  fromYearState: number,
+  updateToYear: (toYear: string) =&gt; void,
+  toYearState: number,
 }
 &nbsp;
 function Sidebar(props: SidebarProps) {
@@ -132,11 +156,11 @@ function Sidebar(props: SidebarProps) {
       &lt;div className='topSidebarContainer'&gt;
         &lt;h1 className='m-6 text-2xl'&gt;World Bank Data Visualizer&lt;/h1&gt;
         &lt;div className='bg-gradient-to-r from-lightBg via-[#6B6B70] to-lightGrayBg h-[1px] mb-4'&gt;&lt;/div&gt;
-        &lt;CountriesInput /&gt;
+        &lt;CountriesInput updateCountriesArr={props.updateCountriesArr} countriesArrState={props.countriesArrState}/&gt;
       &lt;/div&gt;
-      &lt;IndicatorInput /&gt;
+      &lt;IndicatorInput updateIndicator={props.updateIndicator} indicatorState={props.indicatorState}/&gt;
       &lt;div className='topSidebarContainer'&gt;
-      &lt;DatesInput /&gt;
+      &lt;DatesInput updateFromYear={props.updateFromYear} fromYearState={props.fromYearState} updateToYear={props.updateToYear} toYearState={props.toYearState} /&gt;
       &lt;Submit submit={props.submit}/&gt;
       &lt;/div&gt;
     &lt;/div&gt;
@@ -151,7 +175,7 @@ export default Sidebar;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-12-12T17:20:46.605Z
+                at 2023-12-20T16:15:46.322Z
             </div>
         <script src="../prettify.js"></script>
         <script>
