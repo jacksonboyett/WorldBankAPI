@@ -7,13 +7,16 @@ import {
   faEarthAmerica,
   faFlag,
 } from '@fortawesome/free-solid-svg-icons';
-import { InputContext } from '../context/InputContext';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import uniqid from 'uniqid';
 import { countriesCodesJson } from '../data/countries-with-codes';
 
-export default function CountriesInput() {
-  const [inputContext, setInputContext] = useContext(InputContext);
+interface CountriesInputProps {
+  updateCountriesArr: (country: string) => void,
+  countriesArrState: Array<string>,
+}
+
+export default function CountriesInput(props: CountriesInputProps) {
   const [open, setOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [countriesArr, setCountriesArr] = useState<Array<string>>([]);
@@ -40,27 +43,31 @@ export default function CountriesInput() {
     setOpen(false);
   };
 
+  // function selectCountry(country: string) {
+  //   let unorderedCountries = [...inputContext.countries, country];
+  //   let orderedCountries = unorderedCountries.sort((a, b) =>
+  //     a.localeCompare(b)
+  //   );
+  //   if (hasDuplicates(orderedCountries)) {
+  //     setErrorMessage('You can only pick a country once!');
+  //     setOpen(true);
+  //     return;
+  //   }
+  //   if (orderedCountries.length > 3) {
+  //     setErrorMessage('Please only pick three countries!');
+  //     setOpen(true);
+  //     return;
+  //   }
+  //   setInputContext({
+  //     countries: orderedCountries,
+  //     indicator: inputContext.indicator,
+  //     from: inputContext.from,
+  //     to: inputContext.to,
+  //   });
+  // }
+
   function selectCountry(country: string) {
-    let unorderedCountries = [...inputContext.countries, country];
-    let orderedCountries = unorderedCountries.sort((a, b) =>
-      a.localeCompare(b)
-    );
-    if (hasDuplicates(orderedCountries)) {
-      setErrorMessage('You can only pick a country once!');
-      setOpen(true);
-      return;
-    }
-    if (orderedCountries.length > 3) {
-      setErrorMessage('Please only pick three countries!');
-      setOpen(true);
-      return;
-    }
-    setInputContext({
-      countries: orderedCountries,
-      indicator: inputContext.indicator,
-      from: inputContext.from,
-      to: inputContext.to,
-    });
+    props.updateCountriesArr(country);
   }
 
   function hasDuplicates(array: Array<string>) {
@@ -96,6 +103,7 @@ export default function CountriesInput() {
                 <Menu.Item key={uniqid()}>
                   {({ active }) => (
                     <button
+                      role={country}
                       className={`${
                         active ? 'bg-lightBlueBg text-white' : 'text-gray-900'
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
@@ -110,7 +118,7 @@ export default function CountriesInput() {
           </Menu.Items>
         </Transition>
       </Menu>
-      {inputContext.countries.map((country: string, index: number) => {
+      {props.countriesArrState.map((country: string, index: number) => {
         return (
           <div
             key={uniqid()}

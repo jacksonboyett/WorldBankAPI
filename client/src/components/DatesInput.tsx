@@ -3,38 +3,46 @@ import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputContext } from '../context/InputContext';
 
-function DatesInput() {
+interface DatesInputProps {
+  updateFromYear: (fromYear: string) => void;
+  fromYearState: number;
+  updateToYear: (toYear: string) => void;
+  toYearState: number;
+}
+
+function DatesInput(props: DatesInputProps) {
   const [inputContext, setInputContext] = useContext(InputContext);
 
-  function handleFromChange(e: any) {
-    let from = e.target.value;
-    setInputContext({
-      countries: inputContext.countries,
-      indicator: inputContext.indicator,
-      from: from,
-      to: inputContext.to,
-    });
-  }
+  // function handleFromChange(e: any) {
+  //   let from = e.target.value;
+  //   setInputContext({
+  //     countries: inputContext.countries,
+  //     indicator: inputContext.indicator,
+  //     from: from,
+  //     to: inputContext.to,
+  //   });
+  // }
 
-  function handleToChange(e: any) {
-    let to = e.target.value;
-    setInputContext({
-      countries: inputContext.countries,
-      indicator: inputContext.indicator,
-      from: inputContext.from,
-      to: to,
-    });
-  }
+  // function handleToChange(e: any) {
+  //   let to = e.target.value;
+  //   setInputContext({
+  //     countries: inputContext.countries,
+  //     indicator: inputContext.indicator,
+  //     from: inputContext.from,
+  //     to: to,
+  //   });
+  // }
 
   return (
     <div className='text-start w-full'>
       <div className='relative bg-gradient-to-r from-darkBlueBg to-lightBlueBg h-12 flex items-center rounded-lg justify-between w-full mb-4'>
         <input
+          role='fromInput'
           type='number'
           id='floating_outlined'
           className='px-2.5 pb-2.5 pt-4 w-full text-white bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
           placeholder=''
-          onChange={handleFromChange}
+          onChange={(e) => props.updateFromYear(e.target.value)}
         />
         <label
           htmlFor='floating_outlined'
@@ -46,11 +54,12 @@ function DatesInput() {
       </div>
       <div className='relative bg-gradient-to-r from-darkBlueBg to-lightBlueBg h-12 flex items-center rounded-lg justify-between w-full mb-4'>
         <input
+          role='toInput'
           type='number'
           id='floating_outlined'
           className='px-2.5 pb-2.5 pt-4 w-full text-white bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
           placeholder=''
-          onChange={handleToChange}
+          onChange={(e) => props.updateToYear(e.target.value)}
         />
         <label
           htmlFor='floating_outlined'

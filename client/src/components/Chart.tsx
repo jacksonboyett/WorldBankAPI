@@ -1,21 +1,28 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import { LineChart } from '@mui/x-charts/LineChart';
 import { DataContext } from '../context/DataContext';
 import { InputContext } from '../context/InputContext';
 
-export default function MUIChart() {
-  const [dataContext] = useContext(DataContext);
-  const [inputContext] = useContext(InputContext);
+interface ChartProps {
+  countriesArrState: Array<string>,
+  haveDataState: boolean;
+  valuesState: Array<number>;
+  responseState: any,
+  unitState: string;
+  magnitudeState: number;
+}
+
+export default function Chart(props: ChartProps) {
 
   let xLabels = [];
   let uData: any = [[]];
 
-  xLabels = makeXLabelsArr(dataContext.res);
-  uData = dataContext.values;
-
-  return dataContext.haveData ? (
-    <div className='h-full'>
+  xLabels = makeXLabelsArr(props.responseState);
+  uData = props.valuesState;
+  
+  return props.haveDataState ? (
+    <div role='chart'className='h-full'>
       <LineChart
         sx={{
           //change left yAxis label styles
@@ -57,11 +64,11 @@ export default function MUIChart() {
         series={uData.map((arr: Array<number>, index: number) => {
           return {
             data: arr,
-            label: `${inputContext.countries[index]}`,
+            label: `${props.countriesArrState[index]}`,
           };
         })}
         xAxis={[{ scaleType: 'point', data: xLabels, label: 'Year' }]}
-        yAxis={[{ label: `${dataContext.unit} (x${dataContext.mag})` }]}
+        yAxis={[{ label: `${props.unitState} (x${props.magnitudeState.toExponential()})` }]}
       />
     </div>
   ) : (

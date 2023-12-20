@@ -1,44 +1,68 @@
 import Sidebar from '../components/Sidebar';
 import ChartContainer from '../components/ChartContainer';
-import { InputContext } from '../context/InputContext';
 import { Snackbar, Alert } from '@mui/material';
-import { DataContext } from '../context/DataContext';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { indicatorsCodesJson } from '../data/indicators-with-codes';
 import { countriesCodesJson } from '../data/countries-with-codes';
 
 function Main() {
-  const [inputContext] = useContext(InputContext);
-  const [dataContext, setDataContext] = useContext(DataContext);
+  // Indicator states
+  const [countriesArrState, setCountriesArr] = useState<Array<string>>([]);
+  const [indicatorState, setIndicator] = useState<string>('');
+  const [fromYearState, setFromYear] = useState<number>(0);
+  const [toYearState, setToYear] = useState<number>(0);
+
+  // Data response states
+  const [haveDataState, setHaveData] = useState<boolean>(false);
+  const [valuesState, setValues] = useState<Array<number>>([]);
+  const [responseState, setResponse] = useState<any>([]);
+  const [unitState, setUnit] = useState<string>('');
+  const [magnitudeState, setMagnitude] = useState<number>(0);
+
   const [open, setOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  function makecountryValuesArr(resArr: any, numberOfCountries: number) {
+  function makeCountryValuesArr(responseArr: any, numberOfCountries: number) {
     let count = 0;
-    let countryValuesArr = [];
-    let allCountryValuesArr = [];
-    let maxValues = [];
+    let countryValuesArr: Array<number> = [];
+    let allCountriesValuesArr: Array<Array<number>> = [];
+    let maxValues: Array<number> = [];
     for (let j = 0; j < numberOfCountries; j++) {
-      for (let i = 0; i < resArr.length / numberOfCountries; i++) {
-        countryValuesArr.push(resArr[count].value);
+      for (let i = 0; i < responseArr.length / numberOfCountries; i++) {
+        countryValuesArr.push(responseArr[count].value);
         count++;
       }
       countryValuesArr = countryValuesArr.reverse();
       let max = Math.max.apply(Math, countryValuesArr);
       maxValues.push(max);
-      allCountryValuesArr.push(countryValuesArr);
+      allCountriesValuesArr.push(countryValuesArr);
       countryValuesArr = [];
     }
-    let max = Math.max.apply(Math, maxValues);
-    let mag = magnitude(max);
-    if (max > 999999) {
-      allCountryValuesArr = divideValueByMagnitude(allCountryValuesArr, mag);
-    }
-    return allCountryValuesArr;
+    let adjustedArr: Array<Array<number>> = adjustForMagnitude(
+      allCountriesValuesArr,
+      maxValues
+    );
+    return adjustedArr;
   }
 
-  function divideValueByMagnitude(
+  function adjustForMagnitude(
+    allCountriesValuesArr: Array<Array<number>>,
+    maxValues: Array<number>
+  ) {
+    let max = Math.max.apply(Math, maxValues);
+    let mag = getMagnitude(max);
+    setMagnitude(mag);
+    if (max > 999999) {
+      allCountriesValuesArr = divideEachValueByMagnitude(
+        allCountriesValuesArr,
+        mag
+      );
+    }
+    return allCountriesValuesArr;
+  }
+
+  function divideEachValueByMagnitude(
     unadjustedArr: Array<Array<number>>,
     mag: number
   ) {
@@ -48,12 +72,12 @@ function Main() {
     return adjustedArr;
   }
 
-  function magnitude(n: number) {
+  function getMagnitude(n: number) {
     var order = Math.floor(Math.log(n) / Math.LN10 + 0.000000001);
     return Math.pow(10, order);
   }
 
-  function handleEnter(e) {
+  function handleEnter(e: any) {
     if (e.key === 'Enter') {
       submit();
     }
@@ -71,37 +95,46 @@ function Main() {
 
   async function submit() {
     if (
-      inputContext.countries.length < 1 ||
-      inputContext.indicator < 1 ||
-      inputContext.from === 0 ||
-      inputContext.to === 0
+      countriesArrState.length < 1 ||
+      indicatorState === '' ||
+      fromYearState === 0 ||
+      toYearState === 0
     ) {
       setErrorMessage('Please complete all of the inputs!');
       setOpen(true);
       return;
     }
-    let countries = processCountriesInput(inputContext.countries);
-    let indicator = processIndicatorInput(inputContext.indicator);
-    let from = inputContext.from;
-    let to = inputContext.to;
+    let countries = processCountriesInput(countriesArrState);
+    let indicator = processIndicatorInput(indicatorState);
+    let from = fromYearState;
+    let to = toYearState;
     const url = `http://api.worldbank.org/v2/country/${countries}/indicator/${indicator}?&format=json&date=${from}:${to}&per_page=2000`;
-    // const url = `http://api.worldbank.org/v2/country/PE;US;DE/indicator/FP.CPI.TOTL.ZG?&format=json&date=2020:2022&per_page=2000`;
     try {
       const res = await axios.get(url);
-      let newData = makecountryValuesArr(
-        res.data[1],
-        inputContext.countries.length
-      );
-      console.log(res);
-      setDataContext({
-        haveData: true,
-        values: newData,
-        unit: res.data[1][0].indicator.value,
-        res: res.data[1],
-      });
+      let newData = makeCountryValuesArr(res.data[1], countriesArrState.length);
+      setHaveData(true);
+      setValues(newData);
+      setResponse(res.data[1]);
+      setUnit(res.data[1][0].indicator.value);
     } catch (error) {
       console.log(error);
     }
+  }
+
+  function updateCountriesArr(country: string) {
+    setCountriesArr((countriesArr) => [...countriesArr, country]);
+  }
+
+  function updateIndicator(indicator: string) {
+    setIndicator(indicator);
+  }
+
+  function updateFromYear(fromYear: string) {
+    setFromYear(+fromYear);
+  }
+
+  function updateToYear(toYear: string) {
+    setToYear(+toYear);
   }
 
   return (
@@ -110,8 +143,25 @@ function Main() {
       tabIndex={0}
       className='bg-bg h-screen flex'
     >
-      <Sidebar submit={submit} />
-      <ChartContainer />
+      <Sidebar
+        submit={submit}
+        updateCountriesArr={updateCountriesArr}
+        countriesArrState={countriesArrState}
+        updateIndicator={updateIndicator}
+        indicatorState={indicatorState}
+        updateFromYear={updateFromYear}
+        fromYearState={fromYearState}
+        updateToYear={updateToYear}
+        toYearState={toYearState}
+      />
+      <ChartContainer
+        countriesArrState={countriesArrState}
+        haveDataState={haveDataState}
+        valuesState={valuesState}
+        responseState={responseState}
+        unitState={unitState}
+        magnitudeState={magnitudeState}
+      />
       {open ? (
         <Snackbar autoHideDuration={6000} onClose={handleClose} open={open}>
           <Alert

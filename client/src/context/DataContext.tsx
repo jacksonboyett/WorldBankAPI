@@ -8,7 +8,7 @@ const DataContext = React.createContext<any>(null);
 
 let initialState = {
   haveData: false,
-  values: [],
+  values: [[]],
   unit: '',
   mag: 0,
   res: []

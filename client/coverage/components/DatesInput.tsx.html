@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.81% </span>
+                <span class="strong">76.11% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>53/69</span>
+                <span class='fraction'>51/67</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.81% </span>
+                <span class="strong">76.11% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>53/69</span>
+                <span class='fraction'>51/67</span>
             </div>
         
             
@@ -130,11 +130,7 @@
 <a name='L65'></a><a href='#L65'>65</a>
 <a name='L66'></a><a href='#L66'>66</a>
 <a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -202,33 +198,31 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useContext } from 'react';
-import {
-  faCalendarDays,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputContext } from '../context/InputContext';
 &nbsp;
 function DatesInput() {
-	const [inputContext, setInputContext] = useContext(InputContext)
+  const [inputContext, setInputContext] = useContext(InputContext);
 &nbsp;
 <span class="fstat-no" title="function not covered" >  function handleFromChange(e: any) {</span>
-<span class="cstat-no" title="statement not covered" >		let from = e.target.value;</span>
+<span class="cstat-no" title="statement not covered" >    let from = e.target.value;</span>
 <span class="cstat-no" title="statement not covered" >    setInputContext({</span>
 <span class="cstat-no" title="statement not covered" >      countries: inputContext.countries,</span>
 <span class="cstat-no" title="statement not covered" >      indicator: inputContext.indicator,</span>
 <span class="cstat-no" title="statement not covered" >      from: from,</span>
-<span class="cstat-no" title="statement not covered" >      to: inputContext.to</span>
-<span class="cstat-no" title="statement not covered" >    })</span>
+<span class="cstat-no" title="statement not covered" >      to: inputContext.to,</span>
+<span class="cstat-no" title="statement not covered" >    });</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 &nbsp;
-<span class="fstat-no" title="function not covered" >  function handleToChange(e:any){</span>
-<span class="cstat-no" title="statement not covered" >		let to = e.target.value;</span>
+<span class="fstat-no" title="function not covered" >  function handleToChange(e: any) {</span>
+<span class="cstat-no" title="statement not covered" >    let to = e.target.value;</span>
 <span class="cstat-no" title="statement not covered" >    setInputContext({</span>
 <span class="cstat-no" title="statement not covered" >      countries: inputContext.countries,</span>
 <span class="cstat-no" title="statement not covered" >      indicator: inputContext.indicator,</span>
 <span class="cstat-no" title="statement not covered" >      from: inputContext.from,</span>
-<span class="cstat-no" title="statement not covered" >      to: to</span>
-<span class="cstat-no" title="statement not covered" >    })</span>
+<span class="cstat-no" title="statement not covered" >      to: to,</span>
+<span class="cstat-no" title="statement not covered" >    });</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 &nbsp;
   return (
@@ -249,7 +243,7 @@ function DatesInput() {
         &lt;/label&gt;
         &lt;FontAwesomeIcon icon={faCalendarDays} className='mx-4' /&gt;
       &lt;/div&gt;
-			&lt;div className='relative bg-gradient-to-r from-darkBlueBg to-lightBlueBg h-12 flex items-center rounded-lg justify-between w-full mb-4'&gt;
+      &lt;div className='relative bg-gradient-to-r from-darkBlueBg to-lightBlueBg h-12 flex items-center rounded-lg justify-between w-full mb-4'&gt;
         &lt;input
           type='number'
           id='floating_outlined'
@@ -277,7 +271,7 @@ export default DatesInput;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-12-10T19:08:59.970Z
+                at 2023-12-12T17:20:46.605Z
             </div>
         <script src="../prettify.js"></script>
         <script>

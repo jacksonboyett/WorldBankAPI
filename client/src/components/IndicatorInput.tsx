@@ -9,24 +9,29 @@ import {
 import { useContext } from 'react';
 import { InputContext } from '../context/InputContext';
 
-export default function IndicatorInput() {
+interface IndicatorInputProps {
+  updateIndicator: (indicator: string) => void,
+  indicatorState: string,
+}
+
+export default function IndicatorInput(props: IndicatorInputProps) {
   const [inputContext, setInputContext] = useContext(InputContext);
   const [indicatorTrue, setIndicatorTrue] = useState('hidden');
 
-  function selectIndicator(indicator: string) {
-    setInputContext({
-      countries: inputContext.countries,
-      indicator: indicator,
-      from: inputContext.from,
-      to: inputContext.to,
-    });
-  }
+  // function selectIndicator(indicator: string) {
+  //   setInputContext({
+  //     countries: inputContext.countries,
+  //     indicator: indicator,
+  //     from: inputContext.from,
+  //     to: inputContext.to,
+  //   });
+  // }
 
   useEffect(() => {
-    if (inputContext.indicator != '') {
+    if (props.indicatorState != '') {
       setIndicatorTrue('');
     }
-  }, [inputContext]);
+  }, [props.indicatorState]);
 
   return (
     <div className='relative'>
@@ -58,7 +63,7 @@ export default function IndicatorInput() {
                   className={`${
                     active ? 'bg-lightBlueBg text-white' : 'text-gray-900'
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  onClick={(e) => selectIndicator(e.currentTarget.innerHTML)}
+                  onClick={(e) => props.updateIndicator(e.currentTarget.innerHTML)}
                 >
                   Inflation
                 </button>
@@ -70,7 +75,7 @@ export default function IndicatorInput() {
                   className={`${
                     active ? 'bg-lightBlueBg text-white' : 'text-gray-900'
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  onClick={(e) => selectIndicator(e.currentTarget.innerHTML)}
+                  onClick={(e) => props.updateIndicator(e.currentTarget.innerHTML)}
                 >
                   GDP
                 </button>
@@ -82,7 +87,7 @@ export default function IndicatorInput() {
                   className={`${
                     active ? 'bg-lightBlueBg text-white' : 'text-gray-900'
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  onClick={(e) => selectIndicator(e.currentTarget.innerHTML)}
+                  onClick={(e) => props.updateIndicator(e.currentTarget.innerHTML)}
                 >
                   Population
                 </button>
@@ -96,7 +101,7 @@ export default function IndicatorInput() {
           className={`mx-4 ${indicatorTrue}`}
           icon={faCalculator}
         />
-        <div>{inputContext.indicator}</div>
+        <div>{props.indicatorState}</div>
       </div>
     </div>
   );

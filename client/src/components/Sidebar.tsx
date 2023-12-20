@@ -4,7 +4,15 @@ import DatesInput from './DatesInput';
 import Submit from './Submit';
 
 interface SidebarProps {
-  submit: () => void
+  submit: () => void,
+  updateCountriesArr: (country: string) => void,
+  countriesArrState: Array<string>,
+  updateIndicator: (indicator: string) => void,
+  indicatorState: string,
+  updateFromYear: (fromYear: string) => void,
+  fromYearState: number,
+  updateToYear: (toYear: string) => void,
+  toYearState: number,
 }
 
 function Sidebar(props: SidebarProps) {
@@ -13,11 +21,11 @@ function Sidebar(props: SidebarProps) {
       <div className='topSidebarContainer'>
         <h1 className='m-6 text-2xl'>World Bank Data Visualizer</h1>
         <div className='bg-gradient-to-r from-lightBg via-[#6B6B70] to-lightGrayBg h-[1px] mb-4'></div>
-        <CountriesInput />
+        <CountriesInput updateCountriesArr={props.updateCountriesArr} countriesArrState={props.countriesArrState}/>
       </div>
-      <IndicatorInput />
+      <IndicatorInput updateIndicator={props.updateIndicator} indicatorState={props.indicatorState}/>
       <div className='topSidebarContainer'>
-      <DatesInput />
+      <DatesInput updateFromYear={props.updateFromYear} fromYearState={props.fromYearState} updateToYear={props.updateToYear} toYearState={props.toYearState} />
       <Submit submit={props.submit}/>
       </div>
     </div>
