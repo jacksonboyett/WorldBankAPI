@@ -3,7 +3,7 @@ import Chart from './Chart';
 interface ChartContainerProps {
   countriesArrState: Array<string>,
   haveDataState: boolean;
-  valuesState: Array<number>;
+  valuesState: Array<Array<number>>;
   responseState: any, 
   unitState: string;
   magnitudeState: number;

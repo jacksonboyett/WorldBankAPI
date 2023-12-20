@@ -1,7 +1,5 @@
-import { useContext } from 'react';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { InputContext } from '../context/InputContext';
 
 interface DatesInputProps {
   updateFromYear: (fromYear: string) => void;
@@ -11,7 +9,6 @@ interface DatesInputProps {
 }
 
 function DatesInput(props: DatesInputProps) {
-  const [inputContext, setInputContext] = useContext(InputContext);
 
   // function handleFromChange(e: any) {
   //   let from = e.target.value;

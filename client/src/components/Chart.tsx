@@ -1,13 +1,9 @@
-import { useContext, useEffect } from 'react';
-
 import { LineChart } from '@mui/x-charts/LineChart';
-import { DataContext } from '../context/DataContext';
-import { InputContext } from '../context/InputContext';
 
 interface ChartProps {
   countriesArrState: Array<string>,
   haveDataState: boolean;
-  valuesState: Array<number>;
+  valuesState: Array<Array<number>>;
   responseState: any,
   unitState: string;
   magnitudeState: number;

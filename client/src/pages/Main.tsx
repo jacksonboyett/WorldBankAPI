@@ -1,7 +1,7 @@
 import Sidebar from '../components/Sidebar';
 import ChartContainer from '../components/ChartContainer';
 import { Snackbar, Alert } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { indicatorsCodesJson } from '../data/indicators-with-codes';
 import { countriesCodesJson } from '../data/countries-with-codes';
@@ -15,7 +15,7 @@ function Main() {
 
   // Data response states
   const [haveDataState, setHaveData] = useState<boolean>(false);
-  const [valuesState, setValues] = useState<Array<number>>([]);
+  const [valuesState, setValues] = useState<Array<Array<number>>>([[]]);
   const [responseState, setResponse] = useState<any>([]);
   const [unitState, setUnit] = useState<string>('');
   const [magnitudeState, setMagnitude] = useState<number>(0);
@@ -111,6 +111,7 @@ function Main() {
     const url = `http://api.worldbank.org/v2/country/${countries}/indicator/${indicator}?&format=json&date=${from}:${to}&per_page=2000`;
     try {
       const res = await axios.get(url);
+      console.log(res);
       let newData = makeCountryValuesArr(res.data[1], countriesArrState.length);
       setHaveData(true);
       setValues(newData);
@@ -154,6 +155,7 @@ function Main() {
         updateToYear={updateToYear}
         toYearState={toYearState}
       />
+      <div role='dataTest' className='hidden'>{valuesState[0][0]}</div>
       <ChartContainer
         countriesArrState={countriesArrState}
         haveDataState={haveDataState}

@@ -6,8 +6,6 @@ import {
   faChevronDown,
   faScaleBalanced,
 } from '@fortawesome/free-solid-svg-icons';
-import { useContext } from 'react';
-import { InputContext } from '../context/InputContext';
 
 interface IndicatorInputProps {
   updateIndicator: (indicator: string) => void,
@@ -15,7 +13,6 @@ interface IndicatorInputProps {
 }
 
 export default function IndicatorInput(props: IndicatorInputProps) {
-  const [inputContext, setInputContext] = useContext(InputContext);
   const [indicatorTrue, setIndicatorTrue] = useState('hidden');
 
   // function selectIndicator(indicator: string) {
